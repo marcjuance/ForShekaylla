@@ -22,6 +22,31 @@ body {
   text-align: center;
 }
 
+/* 🎞️ FILM GRAIN OVERLAY */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-radial-gradient(circle at 50% 50%,
+      rgba(255,255,255,0.04) 0,
+      rgba(255,255,255,0.04) 1px,
+      transparent 1px,
+      transparent 3px);
+  opacity: 0.25;
+  animation: grainMove 0.6s steps(2) infinite;
+  z-index: 2000;
+}
+
+@keyframes grainMove {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-1px,1px); }
+  50% { transform: translate(1px,-1px); }
+  75% { transform: translate(-1px,-1px); }
+  100% { transform: translate(0,0); }
+}
+
 .app {
   width: 390px;
   height: 100vh;
@@ -125,7 +150,6 @@ p {
   color: #ff5f9e;
 }
 
-/* Typed text */
 #typedText {
   white-space: pre-wrap;
   min-height: 120px;
@@ -242,6 +266,7 @@ footer {
   <p>To the one who holds my heart</p>
 
   <div class="slideshow">
+    <!-- ADD UP TO 30 IMAGES -->
     <img src="photo1.jpg" class="active">
     <img src="photo2.jpg">
     <img src="photo3.jpg">
@@ -260,7 +285,6 @@ footer {
     <img src="photo16.jpg">
     <img src="photo17.jpg">
     <img src="photo18.jpg">
-    <img src="photo18.jpg">
     <img src="photo19.jpg">
     <img src="photo20.jpg">
     <img src="photo21.jpg">
@@ -268,13 +292,17 @@ footer {
     <img src="photo23.jpg">
     <img src="photo24.jpg">
     <img src="photo25.jpg">
+    <img src="photo26.jpg">
+    <img src="photo27.jpg">
+    <img src="photo28.jpg">
+    <img src="photo29.jpg">
+    <img src="photo30.jpg">
   </div>
 
   <button class="letter-btn" onclick="openLetter()">Read My Letter 💌</button>
   <footer>Forever & always, it’s you 💕</footer>
 </div>
 
-<!-- 📜 LETTER -->
 <div class="letter-modal" id="letterModal">
   <div class="letter">
     <h3>My Love ❤️</h3>
@@ -291,14 +319,12 @@ footer {
 function startExperience() {
   const overlay = document.querySelector(".overlay");
   overlay.classList.add("active");
-
   setTimeout(() => {
     overlay.style.display = "none";
     document.getElementById("music").play();
   }, 450);
 }
 
-/* ✍️ TYPED LETTER */
 const letterText = `Every photo here is a memory I treasure that we had created together.
 Never would I have expected the day would come for us to be together.
 
@@ -318,13 +344,10 @@ function typeLetter() {
   const target = document.getElementById("typedText");
   target.textContent = "";
   typingIndex = 0;
-
   typingInterval = setInterval(() => {
     target.textContent += letterText.charAt(typingIndex);
     typingIndex++;
-    if (typingIndex >= letterText.length) {
-      clearInterval(typingInterval);
-    }
+    if (typingIndex >= letterText.length) clearInterval(typingInterval);
   }, 35);
 }
 
@@ -339,7 +362,6 @@ function closeLetter() {
   clearInterval(typingInterval);
 }
 
-/* 💐 FLOWERS */
 function showFlowers() {
   for (let i = 0; i < 6; i++) {
     const flower = document.createElement("div");
@@ -352,7 +374,6 @@ function showFlowers() {
   }
 }
 
-/* 🖼️ SLIDESHOW */
 let slideIndex = 0;
 const slides = document.querySelectorAll(".slideshow img");
 
@@ -362,7 +383,6 @@ setInterval(() => {
   slides[slideIndex].classList.add("active");
 }, 3500);
 
-/* ❤️ FLOATING HEARTS */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -372,7 +392,6 @@ setInterval(() => {
   setTimeout(() => heart.remove(), 7000);
 }, 800);
 
-/* ✨ SPARKLES */
 setInterval(() => {
   const sparkle = document.createElement("div");
   sparkle.className = "sparkle";
@@ -384,5 +403,4 @@ setInterval(() => {
 </script>
 
 </body>
-
 </html>
