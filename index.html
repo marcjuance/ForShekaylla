@@ -2,399 +2,201 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=390, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>Happy Valentine’s ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Happy Valentine 💖</title>
+
+<!-- Fonts -->
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Dancing+Script:wght@500&display=swap');
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-
-* {
-  box-sizing: border-box;
-  -webkit-text-size-adjust: 100%;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  margin: 0;
-  font-family: 'Poppins', Arial, sans-serif;
-  background: radial-gradient(circle at top, #3a1c71, #1a102f, #0b0618);
-  color: white;
-  overflow: hidden;
-  text-align: center;
+  background: #0f0c1d;
+  color: #fff;
+  font-family: sans-serif;
+  overflow-x: hidden;
 }
 
-/* 🎞️ FILM GRAIN OVERLAY */
-body::after {
-  content: "";
+/* 🌙 DAY / NIGHT MODE */
+body.day {
+  background: linear-gradient(to top, #ffd6e8, #b5c7ff);
+}
+body.night {
+  background: linear-gradient(to top, #0b0a1c, #24143c);
+}
+
+/* 🎮 INTRO OVERLAY */
+.overlay {
   position: fixed;
   inset: 0;
-  pointer-events: none;
-  background-image:
-    repeating-radial-gradient(circle at 50% 50%,
-      rgba(255,255,255,0.04) 0,
-      rgba(255,255,255,0.04) 1px,
-      transparent 1px,
-      transparent 3px);
-  opacity: 0.25;
-  animation: grainMove 0.6s steps(2) infinite;
-  z-index: 2000;
-}
-
-@keyframes grainMove {
-  0% { transform: translate(0,0); }
-  25% { transform: translate(-1px,1px); }
-  50% { transform: translate(1px,-1px); }
-  75% { transform: translate(-1px,-1px); }
-  100% { transform: translate(0,0); }
-}
-
-.app {
-  width: 390px;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.app::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(255,182,193,0.12), transparent 65%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-h1, p, footer, .slideshow, .letter-btn {
-  position: relative;
-  z-index: 2;
-}
-
-h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3em;
-  margin-top: 25px;
-  text-shadow:
-    0 0 12px rgba(255,182,193,0.6),
-    0 0 25px rgba(255,105,180,0.4);
-}
-
-p {
-  font-size: 1.15em;
-  opacity: 0.95;
-}
-
-/* 🖼️ SLIDESHOW */
-.slideshow {
-  width: 350px;
-  height: 350px;
-  margin: 20px auto;
-  position: relative;
-}
-
-.slideshow img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 22px;
-  opacity: 0;
-  transition: opacity 1.8s ease-in-out;
-  box-shadow:
-    0 20px 40px rgba(0,0,0,0.6),
-    0 0 25px rgba(255,182,193,0.25);
-}
-
-.slideshow img.active {
-  opacity: 1;
-}
-
-/* 💌 LETTER BUTTON */
-.letter-btn {
-  margin-top: 20px;
-  padding: 12px 22px;
-  font-size: 1em;
-  border-radius: 25px;
-  border: none;
-  background: linear-gradient(45deg, #ff8fb1, #ff5f9e);
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(255,143,177,0.6);
-}
-
-/* 📜 LETTER MODAL */
-.letter-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: none;
+  background: linear-gradient(to top, #2a1c3d, #ff8fa3);
+  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
 }
 
-.letter {
-  background: #fff;
-  color: #333;
-  width: 320px;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: left;
-  font-size: 0.95em;
-  animation: fadeIn 0.6s ease;
-}
-
-.letter h3 {
+.overlay-content {
   text-align: center;
-  color: #ff5f9e;
+  font-family: 'Press Start 2P', monospace;
 }
 
-#typedText {
-  white-space: pre-wrap;
-  min-height: 120px;
+.play-btn {
+  margin-top: 20px;
+  padding: 14px 20px;
+  border: 2px solid #fff;
+  background: #ff6f91;
+  color: #fff;
+  font-size: 0.6em;
+  box-shadow: 0 4px 0 #c84c6c;
 }
 
-.close {
-  text-align: center;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #ff5f9e;
+/* 📸 SLIDESHOW */
+.slideshow-container {
+  width: 90%;
+  max-width: 320px;
+  height: 320px;
+  margin: 15px auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.slide.active { opacity: 1; }
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 🎞 FILM GRAIN (ONLY SLIDESHOW) */
+.slideshow-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://i.imgur.com/8KQnB6K.png");
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+/* 💌 ENVELOPE */
+.envelope {
+  width: 220px;
+  height: 140px;
+  margin: 30px auto;
+  background: #e5c6a8;
+  border-radius: 6px;
+  position: relative;
   cursor: pointer;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* 💐 FLOWERS */
-.flower {
+/* ✉️ LETTER */
+.letter {
   position: absolute;
-  font-size: 32px;
-  animation: pop 4s ease forwards;
-  z-index: 3;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  background: #f9f1e7;
+  color: #3b2f2f;
+  font-family: 'Dancing Script', cursive;
+  padding: 16px;
+  border-radius: 6px;
+  transform: translateX(-120%);
+  transition: transform 0.8s ease;
 }
 
-@keyframes pop {
-  0% { transform: scale(0); opacity: 0; }
-  20% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(0.8); opacity: 0; }
-}
-
-/* ❤️ FLOATING HEARTS */
-.heart {
-  position: absolute;
-  bottom: -20px;
-  font-size: 18px;
-  color: rgba(255,105,180,0.8);
-  animation: floatUp 7s linear infinite;
-  z-index: 1;
-}
-
-@keyframes floatUp {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-110vh); opacity: 0; }
+.letter.open {
+  transform: translateX(0);
 }
 
 /* ✨ SPARKLES */
 .sparkle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0;
-  animation: sparkle 5s ease-in-out infinite;
-  z-index: 1;
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  animation: sparkle 3s infinite;
 }
 
 @keyframes sparkle {
   0% { opacity: 0; }
-  50% { opacity: 0.8; }
+  50% { opacity: 1; }
   100% { opacity: 0; }
-}
-
-footer {
-  margin-top: 25px;
-  font-size: 1.05em;
-  opacity: 0.9;
-}
-
-/* ▶️ TAP OVERLAY */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle, #1a102f, #0b0618);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  cursor: pointer;
-}
-
-.overlay h2 {
-  font-size: 1.6em;
-}
-
-.overlay.active {
-  animation: tapPulse 0.5s ease forwards;
-}
-
-@keyframes tapPulse {
-  0% { transform: scale(1); }
-  40% {
-    transform: scale(1.05);
-    box-shadow: inset 0 0 40px rgba(255,182,193,0.4);
-  }
-  100% {
-    transform: scale(0.95);
-    opacity: 0;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="overlay" onclick="startExperience()">
-  <h2>Tap to open ❤️</h2>
-</div>
-
-<div class="app">
-  <h1>Happy Valentine’s Day ❤️</h1>
-  <p>To the person that I love the most</p>
-
-  <div class="slideshow">
-    <!-- ADD UP TO 30 IMAGES -->
-    <img src="photo1.jpg" class="active">
-    <img src="photo2.jpg">
-    <img src="photo3.jpg">
-    <img src="photo4.jpg">
-    <img src="photo5.jpg">
-    <img src="photo6.jpg">
-    <img src="photo7.jpg">
-    <img src="photo8.jpg">
-    <img src="photo9.jpg">
-    <img src="photo10.jpg">
-    <img src="photo11.jpg">
-    <img src="photo12.jpg">
-    <img src="photo13.jpg">
-    <img src="photo14.jpg">
-    <img src="photo15.jpg">
-    <img src="photo16.jpg">
-    <img src="photo17.jpg">
-    <img src="photo18.jpg">
-    <img src="photo19.jpg">
-    <img src="photo20.jpg">
-    <img src="photo21.jpg">
-    <img src="photo22.jpg">
-    <img src="photo23.jpg">
-    <img src="photo24.jpg">
-    <img src="photo25.jpg">
-  </div>
-
-  <button class="letter-btn" onclick="openLetter()">Read My Letter 💌</button>
-  <footer>Forever & always, I will choose you 💕</footer>
-</div>
-
-<div class="letter-modal" id="letterModal">
-  <div class="letter">
-    <h3>My Love ❤️</h3>
-    <p id="typedText"></p>
-    <div class="close" onclick="closeLetter()">Close</div>
-  </div>
-</div>
-
+<!-- 🎵 MUSIC -->
 <audio id="music" loop>
   <source src="softspot.mp3" type="audio/mpeg">
 </audio>
 
+<!-- 🎮 INTRO -->
+<div class="overlay" onclick="startExperience()">
+  <div class="overlay-content">
+    <h2>TAP TO OPEN</h2>
+    <div class="play-btn">PLAY TOGETHER</div>
+  </div>
+</div>
+
+<!-- 📸 SLIDESHOW -->
+<div class="slideshow-container">
+  <div class="slide active"><img src="photo1.jpg"></div>
+  <div class="slide"><img src="photo2.jpg"></div>
+  <div class="slide"><img src="photo3.jpg"></div>
+  <div class="slide"><img src="photo4.jpg"></div>
+  <div class="slide"><img src="photo5.jpg"></div>
+  <div class="slide"><img src="photo6.jpg"></div>
+</div>
+
+<!-- 💌 ENVELOPE -->
+<div class="envelope" onclick="toggleLetter()">
+  <div class="letter" id="letter">
+    My love,<br><br>
+    Every moment with you feels like home.
+    I made this just for you. 💕<br><br>
+    Forever yours.
+  </div>
+</div>
+
 <script>
+/* 🌙 DAY / NIGHT */
+const hour = new Date().getHours();
+document.body.classList.add(hour >= 6 && hour < 18 ? "day" : "night");
+
+/* 🎮 START */
 function startExperience() {
-  const overlay = document.querySelector(".overlay");
-  overlay.classList.add("active");
-  setTimeout(() => {
-    overlay.style.display = "none";
-    document.getElementById("music").play();
-  }, 450);
+  document.querySelector(".overlay").style.display = "none";
+  document.getElementById("music").play();
 }
 
-const letterText = `Every photo here is a memory I treasure that we had created together.
-Never would I have expected the day would come for us to be together.
-
-I hope that this will last a lifetime and that we get to create even more memories.
-You make my heart feel safe, warm, and understood.
-
-Thank you for being my comfort, my happiness, and my favorite person to love.
-No matter where life takes us, my heart will always choose you.
-
-Happy Valentine’s Day.
-I love you, always langga ❤️`;
-
-let typingIndex = 0;
-let typingInterval;
-
-function typeLetter() {
-  const target = document.getElementById("typedText");
-  target.textContent = "";
-  typingIndex = 0;
-  typingInterval = setInterval(() => {
-    target.textContent += letterText.charAt(typingIndex);
-    typingIndex++;
-    if (typingIndex >= letterText.length) clearInterval(typingInterval);
-  }, 35);
-}
-
-function openLetter() {
-  document.getElementById("letterModal").style.display = "flex";
-  showFlowers();
-  typeLetter();
-}
-
-function closeLetter() {
-  document.getElementById("letterModal").style.display = "none";
-  clearInterval(typingInterval);
-}
-
-function showFlowers() {
-  for (let i = 0; i < 6; i++) {
-    const flower = document.createElement("div");
-    flower.className = "flower";
-    flower.innerHTML = "💐";
-    flower.style.left = Math.random() * 320 + "px";
-    flower.style.top = Math.random() * 400 + "px";
-    document.querySelector(".app").appendChild(flower);
-    setTimeout(() => flower.remove(), 4000);
-  }
-}
-
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slideshow img");
-
+/* 📸 SLIDESHOW */
+let slides = document.querySelectorAll(".slide");
+let index = 0;
 setInterval(() => {
-  slides[slideIndex].classList.remove("active");
-  slideIndex = (slideIndex + 1) % slides.length;
-  slides[slideIndex].classList.add("active");
-}, 3500);
+  slides[index].classList.remove("active");
+  index = (index + 1) % slides.length;
+  slides[index].classList.add("active");
+}, 4000);
 
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * 390 + "px";
-  document.querySelector(".app").appendChild(heart);
-  setTimeout(() => heart.remove(), 7000);
-}, 800);
-
-setInterval(() => {
-  const sparkle = document.createElement("div");
-  sparkle.className = "sparkle";
-  sparkle.style.left = Math.random() * 390 + "px";
-  sparkle.style.top = Math.random() * window.innerHeight + "px";
-  document.querySelector(".app").appendChild(sparkle);
-  setTimeout(() => sparkle.remove(), 5000);
-}, 600);
+/* 💌 LETTER */
+let open = false;
+function toggleLetter() {
+  const letter = document.getElementById("letter");
+  open = !open;
+  letter.classList.toggle("open", open);
+}
 </script>
 
 </body>
